@@ -1,2 +1,2 @@
 # strefa-apps
-System aplikacji serwera Strefa RP.
+System aplikacji serwera StrefaRP.
