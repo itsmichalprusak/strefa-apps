@@ -16,7 +16,6 @@ class CreateCampaignsTable extends Migration
         Schema::create('campaigns', function (Blueprint $table) {
             $table->uuid('uuid')
                 ->comment('Identyfikator kampanii rekrutacyjnej.')
-                ->unique()
                 ->primary()
                 ->index();
             $table->string('name')
@@ -27,9 +26,9 @@ class CreateCampaignsTable extends Migration
                 ->comment('Długi opis kampanii.');
             $table->boolean('available')
                 ->comment('Dostępność składania podań.');
-            $table->json('form')
+            $table->string('form')
                 ->comment('Formularz rekrutacyjny dla tej kampanii, serializowany do JSONa.');
-            $table->json('who_can_check')
+            $table->string('who_can_check')
                 ->comment('Lista identyfikatorów Discord osób z uprawnieniami do sprawdzania podań.');
             $table->bigInteger('ips_group_on_accept')
                 ->nullable()

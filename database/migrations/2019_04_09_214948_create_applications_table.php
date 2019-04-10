@@ -16,7 +16,6 @@ class CreateApplicationsTable extends Migration
         Schema::create('applications', function (Blueprint $table) {
             $table->uuid('uuid')
                 ->comment('Identyfikator aplikacji.')
-                ->unique()
                 ->primary()
                 ->index();
             $table->unsignedBigInteger('discord_id')
@@ -25,7 +24,7 @@ class CreateApplicationsTable extends Migration
                 ->comment('Nazwa użytkownika na forum.');
             $table->string('steam_hex')
                 ->comment('HEX wyciągnięty ze Steam ID aplikanta.');
-            $table->json('body')
+            $table->string('body')
                 ->comment('Pytania i odpowiedzi tej aplikacji, serializowane do JSONa.');
             $table->string('state')
                 ->default('SENT')
@@ -37,7 +36,7 @@ class CreateApplicationsTable extends Migration
                 ->comment('Adres IP, z którego wysłano aplikację.');
             $table->uuid('campaign_uuid')
                 ->comment('Identyfikator kampanii rekrutacyjnej.');
-            $table->unsignedBigInteger('payment_uuid')
+            $table->uuid('payment_uuid')
                 ->nullable()
                 ->default(null)
                 ->comment('Identyfikator płatności powiązanej z tym podaniem (cele przyspieszenia).');

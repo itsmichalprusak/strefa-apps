@@ -16,13 +16,10 @@ class CreatePaymentsTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->uuid('uuid')
                 ->comment('Identyfikator płatności.')
-                ->unique()
                 ->primary()
                 ->index();
             $table->string('paypal_id')
-                ->comment('Identyfikator płatności PayPal.')
-                ->unique()
-                ->index();
+                ->comment('Identyfikator płatności PayPal.');
             $table->unsignedBigInteger('discord_id')
                 ->comment('ID płacącego na Discordzie.');
             $table->string('full_name')
