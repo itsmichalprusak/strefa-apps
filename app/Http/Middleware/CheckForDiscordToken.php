@@ -16,11 +16,12 @@ class CheckForDiscordToken
      */
     public function handle($request, Closure $next)
     {
-        if (Cookie::get('token') != null) {
-            // Todo: Validity check
-            return $next($request);
+        if (Cookie::get('token') == null) {
+            return redirect( '/auth');
+
         }
 
-        return redirect( '/auth');
+        // Todo: Validity check
+        return $next($request);
     }
 }

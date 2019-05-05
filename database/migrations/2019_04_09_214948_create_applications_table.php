@@ -21,9 +21,11 @@ class CreateApplicationsTable extends Migration
             $table->unsignedBigInteger('discord_id')
                 ->comment('ID użytkownika na Discordzie.');
             $table->string('ips_username')
-                ->comment('Nazwa użytkownika na forum.');
+                ->comment('Nazwa użytkownika na forum.')
+                ->nullable();
             $table->string('steam_hex')
-                ->comment('HEX wyciągnięty ze Steam ID aplikanta.');
+                ->comment('HEX wyciągnięty ze Steam ID aplikanta.')
+                ->nullable();
             $table->string('body')
                 ->comment('Pytania i odpowiedzi tej aplikacji, serializowane do JSONa.');
             $table->string('state')

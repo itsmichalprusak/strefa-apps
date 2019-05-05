@@ -1,25 +1,17 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace App\Http\Controllers\Application;
 
-use Closure;
-use GuzzleHttp\Client;
+use App\Campaign;
+use App\Http\Controllers\Controller;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Cookie;
 
-class CheckForAdminRights
+class CampaignController extends Controller
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
-    public function handle($request, Closure $next)
+    public function displayCampaigns()
     {
-        $token = Cookie::get('token');
-
         $client = new Client();
         $headers = [
             'headers' => [
@@ -37,12 +29,9 @@ class CheckForAdminRights
         }
 
         $responseBody = json_decode($response->getBody()->getContents());
+        $profilePicture = 'https://cdn.discordapp.com/avatars/' . $responseBody->id . '/' . $responseBody->avatar . '.png';
 
-        if ($token != null && in_array($responseBody->id, config('admins.ids')))
-        {
-            return $next($request);
-        }
-
-        return abort(403);
+        $campaigns = Campaign::orderBy('created_at', 'asc')->get();
+        return view('pages.user.campaigns')->with('profilePicture', $profilePicture)->with('campaigns', $campaigns);
     }
 }

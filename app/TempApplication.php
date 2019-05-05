@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Webpatser\Uuid\Uuid;
 
-class Campaign extends Model
+class TempApplication extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -13,15 +13,27 @@ class Campaign extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
-        'short_description',
-        'description',
-        'available',
-        'who_can_check',
-        'ips_group_on_accept',
-        'discord_role_on_accept'
-    ];
+        'age',
+        'forum_name',
+        'steam_url',
 
+        'rules_opinion',
+        'rp_definition',
+        'past_characters',
+        'character_idea',
+        'streamer',
+        'me_do',
+        'ooc_vs_ic',
+        'do_lying',
+        'tweet',
+        'revenge_kill',
+        'brutally_wounded',
+        'meta_gaming',
+        'power_gaming',
+        'forget',
+        'crash',
+    ];
+    
     /**
      *  Setup model event hooks
      */
