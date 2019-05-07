@@ -15,6 +15,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', 'Front\\FrontController');
     Route::get('/new', 'Application\\TempApplicationController@displayApplicationCreation');
     Route::post('/new', 'Application\\TempApplicationController@handleApplicationCreation');
+    Route::post('/billing', 'Billing\\BillingController@handlePayment');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {

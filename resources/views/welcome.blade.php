@@ -101,7 +101,7 @@
 
                     @if($applications->count() > 0)
                         @foreach($applications as $application)
-                        <div class="card" data-toggle="lists" data-lists-values="[&quot;name&quot;]">
+                        <div class="card {{ $application->state == 666 ? "border-warning" : ""}}" data-toggle="lists" data-lists-values="[&quot;name&quot;]">
                             <div class="card-body">
 
                                 <!-- List -->
@@ -113,7 +113,7 @@
                                                 <!-- Title -->
                                                 @if($application->state == 1337)
                                                     <h4>Tryb Developerski</h4>
-                                                @elseif($application->state == 0 or $application->state == 1 or $application->state == 2 or $application->state == 3)
+                                                @elseif($application->state == 0 or $application->state == 1 or $application->state == 2 or $application->state == 3 or $application->state == 666)
                                                     <h4>Aplikacja na Whitelistę</h4>
                                                 @endif
                                                 <!-- Text -->
@@ -122,7 +122,49 @@
                                                     <span class="badge badge-soft-primary my-2" style="font-size: 14px;"><i class="fe fe-clock"></i> W trakcie sprawdzania</span><br>
                                                     Ten status oznacza, że dostaliśmy Twoją aplikację i zostanie ona sprawdzona wkrótce.<br>
                                                     Maksymalnie trwa to do 7 dni roboczych, chociaż zazwyczaj trwa to nieco krócej.<br>
-                                                    Uzbrój się w cierpliwość - jeśli wszystko poszło dobrze, to dołączysz do nas wkrótce!
+                                                    Uzbrój się w cierpliwość - jeśli wszystko poszło dobrze, to dołączysz do nas wkrótce!<br><hr>
+                                                    Możesz przyspieszyć proces sprawdzania swojego podania do <code>24 godzin</code>, wpłacając symboliczną darowiznę na naszą rzecz - <code>20 PLN</code>.<br>
+                                                    Wszystkie dotacje przekazywane są na opłaty naszej serwerowni. Z góry dziękujemy za zainteresowanie. 😊<br>
+                                                    Kliknij na żółty przycisk PayPal poniżej, by kontynuować.<br><br>
+                                                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+                                                <script src="https://www.paypal.com/sdk/js?locale=pl_PL&currency=PLN&client-id=AYhTIZjGbPJEZgZxizRKgnm7_YKVgoWdaW_O97InWOowEdb0XFtN4DOLXayWiN128lSz-EEjQftH4Ehr"></script>
+                                                <script>
+                                                    paypal.Buttons({
+                                                        createOrder: function(data, actions) {
+                                                            return actions.order.create({
+                                                                purchase_units: [{
+                                                                    amount: {
+                                                                        value: '20.0'
+                                                                    }
+                                                                }]
+                                                            });
+                                                        },
+                                                        onApprove: function(data, actions) {
+                                                            return actions.order.capture().then(function(details) {
+                                                                Swal.fire({
+                                                                    title: 'Płatność',
+                                                                    text: 'Twoja płatność została odnotowana i jest teraz weryfikowana. Zaczekaj chwilkę.',
+                                                                    type: 'info',
+                                                                    showConfirmButton: false,
+                                                                    allowOutsideClick: false,
+                                                                    allowEscapeKey: false,
+                                                                    allowEnterKey: false
+                                                                });
+
+                                                                fetch('/billing', {
+                                                                    method: 'post',
+                                                                    body: JSON.stringify({
+                                                                        orderId: data.orderID,
+                                                                        appId: '{{ $application->uuid }}'
+                                                                    })
+                                                                }).then(response => {
+                                                                    location.reload()
+                                                                });
+                                                            });
+                                                        }
+                                                    }).render('#paypalx');
+                                                </script>
+                                                    <div style="width: 32px;" id="paypalx"></div>
                                                 @elseif($application->state == 1)
                                                     <span class="badge badge-soft-danger my-2" style="font-size: 14px;"><i class="fe fe-close"></i> Odrzucona</span><br>
                                                     Ten status oznacza, że Twoja aplikacja została sprawdzona z wynikiem negatywnym.<br>
@@ -139,6 +181,10 @@
                                                 @elseif($application->state == 1337)
                                                     <span class="badge badge-soft-primary my-2" style="font-size: 14px;"><i class="fe fe-code"></i> Tryb Developerski</span><br>
                                                     Ten status oznacza, że Twoja aplikacja jest w Trybie Developerskim.<br>
+                                                @elseif($application->state == 666)
+                                                    <span class="badge badge-warning my-2" style="font-size: 14px;"><i class="fe fe-bolt"></i> Priorytetowa</span><br>
+                                                    Ten status oznacza, że dostaliśmy Twoją aplikację i wpłaciłeś darowiznę celem turboszybkiego jej sprawdzenia.<br>
+                                                    Niezmiernie dziękujemy za Twój datek i odezwiemy się nie dłużej, niż do 24 godzin!
                                                 @endif
                                                 </p>
 
@@ -149,16 +195,6 @@
                                                 </p>
 
                                             </div>
-                                            @if(false)
-                                                <div class="col-auto">
-
-                                                    <!-- Button -->
-                                                    <a href="/new/{{ $application->uuid }}" class="btn btn-sm btn-white">
-                                                        Wybierz
-                                                    </a>
-
-                                                </div>
-                                            @endif
                                         </div>
                                     </li>
                                 </ul>
