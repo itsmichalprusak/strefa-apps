@@ -85,19 +85,19 @@
       <path value="$PROJECT_DIR$/vendor/psr/http-message" />
       <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
       <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/vendor/paypal/paypal-checkout-sdk" />
+      <path value="$PROJECT_DIR$/vendor/symfony/options-resolver" />
+      <path value="$PROJECT_DIR$/vendor/restcord/restcord" />
+      <path value="$PROJECT_DIR$/vendor/braintree/braintreehttp" />
       <path value="$PROJECT_DIR$/vendor/guzzlehttp/command" />
       <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle-services" />
-      <path value="$PROJECT_DIR$/vendor/restcord/restcord" />
       <path value="$PROJECT_DIR$/vendor/netresearch/jsonmapper" />
-      <path value="$PROJECT_DIR$/vendor/symfony/options-resolver" />
-      <path value="$PROJECT_DIR$/vendor/paypal/paypal-checkout-sdk" />
-      <path value="$PROJECT_DIR$/vendor/braintree/braintreehttp" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />
   <component name="PhpUnit">
     <phpunit_settings>
-      <PhpUnitSettings load_method="CUSTOM_LOADER" configuration_file_path="$PROJECT_DIR$/phpunit.xml" custom_loader_path="$PROJECT_DIR$/vendor/autoload.php" use_configuration_file="true" />
+      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/phpunit.xml" custom_loader_path="$PROJECT_DIR$/vendor/autoload.php" use_configuration_file="true" />
     </phpunit_settings>
   </component>
 </project>
